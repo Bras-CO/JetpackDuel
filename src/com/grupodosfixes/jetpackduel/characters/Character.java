@@ -14,7 +14,7 @@ public abstract class Character implements Collidable {
     protected int width;
     protected int height;
     protected int hp;
-    protected static final int MAX_HP = 100;
+    public static final int MAX_HP = 100;
     protected int speed;
     private Picture sprite;
     private LinkedList<StatusEffect> effects = new LinkedList<>();
@@ -28,12 +28,18 @@ public abstract class Character implements Collidable {
         this.hp = MAX_HP;
     }
 
-    public void takeDamage(int amount) {}
+    public void takeDamage(int amount) {
+        if (hp - amount < 0) {
+            hp = 0;
+        } else  {
+            hp -= amount;
+        }
+    }
 
     public void heal(int amount) {}
 
     public boolean isDead() {
-        return false;
+        return hp <= 0;
     }
 
     public void applyEffect(StatusEffect effect) {}

@@ -5,9 +5,11 @@ import com.grupodosfixes.jetpackduel.characters.Player;
 import com.grupodosfixes.jetpackduel.input.GameKeyboard;
 import com.grupodosfixes.jetpackduel.types.GameState;
 import com.grupodosfixes.jetpackduel.ui.Arena;
+import com.grupodosfixes.jetpackduel.ui.HUD;
 
 public class Game {
     private Arena arena;
+    private HUD hud;
     private GameState state;
     private Player player;
     private Opponent opponent;
@@ -20,6 +22,7 @@ public class Game {
 
     public void init() {
         this.arena = new Arena();
+        this.hud = new HUD();
         this.player = new Player(PLAYER_X, arena.getHeight()/2 - PLAYER_HEIGHT/2, PLAYER_WIDTH, PLAYER_HEIGHT, PLAYER_SPEED);
         this.keyboard = new GameKeyboard();
         keyboard.init();
