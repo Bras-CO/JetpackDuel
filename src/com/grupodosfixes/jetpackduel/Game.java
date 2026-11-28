@@ -43,8 +43,8 @@ public class Game {
 
     public void update() {
         ticks++;
-        System.out.println("tick " + ticks);
-        
+        player.setGoingUp(keyboard.isSpaceHeld());
+        player.update();
     }
 
     public void gameOver(String winner) {
