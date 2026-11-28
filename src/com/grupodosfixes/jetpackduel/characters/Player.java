@@ -5,42 +5,37 @@ public class Player extends Character {
     //need to store position Y as a float
     private float posY;
     private float velocityY = 0;
+    private boolean goingUp = false; //bool for storing if player is going up or down
 
-    private final float GRAVITY = 0.5f;  // constant pull down
-    private final float UP_VELOCITY  = -8f;   // instant upward speed when going up
-    private final float MAX_DOWN_SPEED = 10f;   // max fall speed
+    private final float FLY_POWER = -0.8f; //negative for how fast player accelerates UPWARDS
+    private final float GRAVITY =  0.8f; //positive for how fast player accelerates DOWNWARDS
+    private final float MAX_UP_SPEED = -7f; //negative for max speed going UP
+    private final float MAX_DOWN_SPEED = 7f; //positive for max speed going DOWN
 
     //TEMPORARY VARIABLES FOR COLLISION WITH CANVAS TOP AND BOTTOM
-    private int canvasHeight = 400;
-    private int ceiling = 0;
-    private int floor;
+    private int CEILING = 0;
+    private int FLOOR   = 700;
 
     public Player(int x, int y, int width, int height, int speed) {
         super(x, y, width, height, speed);
         this.posY = y;
-        this.floor = canvasHeight - height;
     }
 
-    //method for going up
-    public void goUp() {
-        velocityY = UP_VELOCITY;
+    //method for going up or down
+    public void setGoingUp(boolean goingUp) {
+        this.goingUp = goingUp;
     }
 
     //method for updating how much the player is going UP or DOWN
     @Override
     public void update() {
-        velocityY += GRAVITY;
-        velocityY = Math.min(velocityY, MAX_DOWN_SPEED); //return the smallest between the 2 values, so the player does not accelerate above MAX SPEED
+        velocityY += goingUp ? FLY_POWER : GRAVITY; //check if player is going up or down, apply fly power or gravity force respectively
+        velocityY = Math.max(MAX_UP_SPEED, Math.min(MAX_DOWN_SPEED, velocityY)); //make sure the speed does not exceed max velocity
         posY += velocityY;
 
         //TEMPORARY COLLISION WITH CANVAS
-        if (posY < ceiling) {
-            posY = ceiling;
-            velocityY = 0;
-        } else if (posY > floor) {
-            posY = floor;
-            velocityY = 0;
-        }
+        if (posY < CEILING) { posY = CEILING; velocityY = 0; }
+        else if (posY > FLOOR) { posY = FLOOR; velocityY = 0; }
 
         y = Math.round(posY); //apply posY(float) to y(int)
     }
