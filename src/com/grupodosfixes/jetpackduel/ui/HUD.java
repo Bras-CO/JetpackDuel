@@ -67,4 +67,15 @@ public class HUD {
         hpBar.delete();
         hpBar.draw();
     }
+
+    public void updateOpponentHP(int hp) {
+        opponentHpBarFill.delete();
+        int newWidth = FILL_SIZE_WIDTH * hp / Character.MAX_HP;
+        int pixelsLost = FILL_SIZE_WIDTH - newWidth;
+        opponentHpBarFill = new Rectangle(OPPONENT_HP_BAR_X + FILL_OFFSET_X + pixelsLost, HP_BAR_Y + FILL_OFFSET_Y, newWidth, FILL_SIZE_HEIGHT );
+        opponentHpBarFill.setColor(Color.RED);
+        opponentHpBarFill.fill();
+        opponentHpBar.delete();
+        opponentHpBar.draw();
+    }
 }
