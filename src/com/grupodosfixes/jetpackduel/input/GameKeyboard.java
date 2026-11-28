@@ -5,10 +5,15 @@ import com.codeforall.online.simplegraphics.keyboard.Keyboard;
 import com.codeforall.online.simplegraphics.keyboard.KeyboardEvent;
 import com.codeforall.online.simplegraphics.keyboard.KeyboardEventType;
 import com.codeforall.online.simplegraphics.keyboard.KeyboardHandler;
+import com.grupodosfixes.jetpackduel.characters.Player;
 
 public class GameKeyboard implements KeyboardHandler {
 
     private Keyboard keyboard;
+    private Player player;
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 
     public void init() {
         //keyboard needs reference to the keyboard handler
@@ -30,11 +35,9 @@ public class GameKeyboard implements KeyboardHandler {
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE) {
-            System.out.println("Go Up!");
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE && player != null) {
+            player.goUp();
         }
-
-
     }
 
     @Override

@@ -1,10 +1,14 @@
 package com.grupodosfixes.jetpackduel.testfolder;
 
+import com.codeforall.online.simplegraphics.graphics.Canvas;
+import com.codeforall.online.simplegraphics.graphics.Rectangle;
+import com.grupodosfixes.jetpackduel.characters.Player;
+import com.grupodosfixes.jetpackduel.input.GameKeyboard;
 import com.grupodosfixes.jetpackduel.objects.CollisionDetector;
 
 public class TestMain {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException{
 
         FakeRectangles a = new FakeRectangles(10, 10, 25, 30);
         FakeRectangles b = new FakeRectangles(15, 30, 40, 30);
@@ -18,6 +22,31 @@ public class TestMain {
 
         //COLLISION WORKS!
 
+
+        //====== TESTING PLAYER =====
+        Canvas.setMaxX(600);
+        Canvas.setMaxY(400);
+
+        Player player = new Player(100, 200, 40, 40, 5);
+
+        Rectangle rectangle = new Rectangle(player.getX(), player.getY(),
+                player.getWidth(), player.getHeight());
+        rectangle.fill();
+
+        GameKeyboard keyboard = new GameKeyboard();
+        keyboard.setPlayer(player);
+        keyboard.init();
+
+        int lastY = player.getY();
+
+        while (true) {
+            player.update();
+
+            rectangle.translate(0, player.getY() - lastY);
+            lastY = player.getY();
+
+            Thread.sleep(16);
+        }
 
     }
 }
