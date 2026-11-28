@@ -24,8 +24,8 @@ public class TestMain {
 
 
         //====== TESTING PLAYER =====
-        Canvas.setMaxX(600);
-        Canvas.setMaxY(400);
+        Canvas.setMaxX(1280);
+        Canvas.setMaxY(720);
 
         Player player = new Player(100, 200, 40, 40, 5);
 
@@ -34,19 +34,19 @@ public class TestMain {
         rectangle.fill();
 
         GameKeyboard keyboard = new GameKeyboard();
-        keyboard.setPlayer(player);
         keyboard.init();
 
         int lastY = player.getY();
 
         while (true) {
+            player.setGoingUp(keyboard.isSpaceHeld());
             player.update();
 
+            // the library moves shapes by an offset, not to an absolute position
             rectangle.translate(0, player.getY() - lastY);
             lastY = player.getY();
 
             Thread.sleep(16);
         }
-
     }
 }
