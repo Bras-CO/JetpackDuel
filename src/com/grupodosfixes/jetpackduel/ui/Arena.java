@@ -2,30 +2,31 @@ package com.grupodosfixes.jetpackduel.ui;
 
 import com.codeforall.online.simplegraphics.graphics.Color;
 import com.codeforall.online.simplegraphics.graphics.Rectangle;
+import com.codeforall.online.simplegraphics.pictures.Picture;
+import com.grupodosfixes.jetpackduel.objects.Collidable;
 
 
 public class Arena {
 
-    private Rectangle background;
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 600;
+    private final Picture background;
 
     public Arena() {
-        background = new Rectangle(10,10,WIDTH, HEIGHT);
-        background.setColor(Color.BLACK);
-        background.fill();
+        background = new Picture(0, 0, "images/backgrounds/placeholder_background.png");
+        background.draw();
+
+
     }
 
     public int getHeight() {
-        return HEIGHT;
+        return background.getHeight();
     }
 
     public int getWidth() {
-        return WIDTH;
+        return background.getWidth();
     }
 
-    public boolean isOutOfBounds(int x, int y) {
-        return x < 0 || x > WIDTH || y < 0 || y > HEIGHT;
+    public boolean isOutOfBounds(Collidable collidable) {
+        return collidable.getX() < 0 || collidable.getY() < 0 || collidable.getX() + collidable.getWidth() > background.getWidth() || collidable.getY() + collidable.getHeight() > background.getHeight();
     }
 
 }
