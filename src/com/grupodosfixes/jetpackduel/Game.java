@@ -1,15 +1,28 @@
 package com.grupodosfixes.jetpackduel;
 
+import com.grupodosfixes.jetpackduel.characters.Opponent;
+import com.grupodosfixes.jetpackduel.characters.Player;
+import com.grupodosfixes.jetpackduel.input.GameKeyboard;
 import com.grupodosfixes.jetpackduel.types.GameState;
 import com.grupodosfixes.jetpackduel.ui.Arena;
 
 public class Game {
     private Arena arena;
     private GameState state;
+    private Player player;
+    private Opponent opponent;
+    private GameKeyboard keyboard;
     private int ticks;
+    private static final int PLAYER_X = 100;
+    private static final int PLAYER_WIDTH = 109;
+    private static final int PLAYER_HEIGHT = 100;
+    private static final int PLAYER_SPEED = 0;
 
     public void init() {
         this.arena = new Arena();
+        this.player = new Player(PLAYER_X, arena.getHeight()/2 - PLAYER_HEIGHT/2, PLAYER_WIDTH, PLAYER_HEIGHT, PLAYER_SPEED);
+        this.keyboard = new GameKeyboard();
+        keyboard.init();
         state = GameState.PLAYING;
     }
 
@@ -30,10 +43,8 @@ public class Game {
 
     public void update() {
         ticks++;
-        System.out.println("tick " + ticks);
-        if (ticks == 100) {
-            gameOver("teste");
-        }
+        player.setGoingUp(keyboard.isSpaceHeld());
+        player.update();
     }
 
     public void gameOver(String winner) {

@@ -1,7 +1,5 @@
 package com.grupodosfixes.jetpackduel.ui;
 
-import com.codeforall.online.simplegraphics.graphics.Color;
-import com.codeforall.online.simplegraphics.graphics.Rectangle;
 import com.codeforall.online.simplegraphics.pictures.Picture;
 import com.grupodosfixes.jetpackduel.objects.Collidable;
 
@@ -13,8 +11,6 @@ public class Arena {
     public Arena() {
         background = new Picture(0, 0, "images/backgrounds/placeholder_background.png");
         background.draw();
-
-
     }
 
     public int getHeight() {

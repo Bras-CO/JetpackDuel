@@ -10,6 +10,8 @@ import com.grupodosfixes.jetpackduel.characters.Player;
 public class GameKeyboard implements KeyboardHandler {
 
     private Keyboard keyboard;
+    private boolean spaceHeld = false;
+
     private Player player;
     public void setPlayer(Player player) {
         this.player = player;
@@ -21,28 +23,38 @@ public class GameKeyboard implements KeyboardHandler {
 
         //set up the events
         //input from the user is called an event
-        KeyboardEvent goUp = new KeyboardEvent();
+        KeyboardEvent spacePressed = new KeyboardEvent();
+        KeyboardEvent spaceReleased = new KeyboardEvent();
 
         //set the keys
-        goUp.setKey(KeyboardEvent.KEY_SPACE);
+        spacePressed.setKey(KeyboardEvent.KEY_SPACE);
+        spaceReleased.setKey(KeyboardEvent.KEY_SPACE);
 
         //set which sort of event the key should handle
-        goUp.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        spacePressed.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        spaceReleased.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
 
         //keyboard should listen to events
-        keyboard.addEventListener(goUp);
+        keyboard.addEventListener(spacePressed);
+        keyboard.addEventListener(spaceReleased);
     }
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE && player != null) {
-            player.goUp();
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE) {
+            spaceHeld = true;
         }
     }
 
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE) {
+            spaceHeld = false;
+        }
+    }
 
+    public boolean isSpaceHeld() {
+        return spaceHeld;
     }
 
 
