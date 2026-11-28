@@ -9,6 +9,7 @@ public class Main {
 
         Arena arena = new Arena();
         HUD hud = new HUD();
+        hud.updatePlayerHP(50);
 
     }
 }
